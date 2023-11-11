@@ -1,0 +1,39 @@
+<mat-card fxLayoutAlign="center center" fxFlex>
+    <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)" fxLayoutGap="10px">
+
+        <h1>Log in</h1>
+
+        <mat-form-field>
+            <input 
+                type="email" 
+                matInput 
+                placeholder="Your email" 
+                ngModel
+                required
+                email
+                #emailInput="ngModel" 
+                name="email"
+            >
+            <mat-error *ngIf="emailInput.hasError('required')">Field should not be empty!</mat-error>
+            <mat-error *ngIf="!emailInput.hasError('required')">Please use the correct E-mail format!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field hintLabel="Minimum 6 characters required!">
+            <input 
+                type="password" 
+                matInput 
+                placeholder="Your password" 
+                ngModel name="password"
+                required
+                minlength="6"
+                #inputPassword="ngModel"
+            >
+            <mat-hint align="end">{{ inputPassword.value?.length }} / 6</mat-hint>
+        </mat-form-field>
+
+        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+        <mat-label align="center" *ngIf="errorExists">{{ errorText }}</mat-label>
+        
+        <button mat-raised-button color="accent"><a routerLink="/signup">New around here? Signup now!</a></button>
+    </form>
+</mat-card>

@@ -1,0 +1,12 @@
+mat-card{
+    margin-top: 30px;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+mat-form-field{
+    width: 300px;
+}
+a {
+    color: white;
+    text-decoration: none;
+}

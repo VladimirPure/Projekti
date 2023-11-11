@@ -1,0 +1,107 @@
+<mat-card fxLayoutAlign="center center" fxLayout="column" fx Flex>
+    <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)" fxLayoutGap="10px">
+
+        <h1>Register</h1>
+
+        <mat-form-field>
+            <input 
+                type="email" 
+                matInput 
+                placeholder="Your email" 
+                ngModel
+                required
+                email
+                #inputEmail="ngModel" 
+                name="email"
+            >
+            <mat-error *ngIf="inputEmail.hasError('required')">Field should not be empty!</mat-error>
+            <mat-error *ngIf="!inputEmail.hasError('required')">Please use the correct E-mail format!</mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field>
+            <input 
+                type="text" 
+                matInput 
+                placeholder="Your firstname" 
+                ngModel
+                required
+                #inputFirstname="ngModel" 
+                name="firstname"
+            >
+            <mat-error *ngIf="inputFirstname.hasError('required')">Field should not be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input 
+                type="text" 
+                matInput 
+                placeholder="Your lastname" 
+                ngModel
+                required
+                #inputLastname="ngModel" 
+                name="lastname"
+            >
+            <mat-error *ngIf="inputLastname.hasError('required')">Field should not be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field hintLabel="Please enter minimum 6 characters">
+            <input 
+                type="password" 
+                matInput 
+                placeholder="Your password" 
+                ngModel name="password"
+                required
+                minlength="6"
+                #inputPassword="ngModel"
+            >
+            <mat-hint align="end">{{ inputPassword.value?.length }} / 6</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input 
+                type="text" 
+                matInput 
+                placeholder="Your address" 
+                ngModel
+                required
+                #inputAddress="ngModel" 
+                name="address"
+            >
+            <mat-error *ngIf="inputAddress.hasError('required')">Field should not be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput
+                placeholder="Your birth date"
+                [matDatepicker]="picker"
+                ngModel
+                name="birthDate"
+                #inputBirthdate="ngModel"
+                required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="inputBirthdate.hasError('required')">Field should not be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select  name="favorites" ngModel placeholder="Your favorites" single>
+                <mat-option *ngFor="let fav of optionsFav" [value]="fav">{{fav}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-checkbox color="primary" ngModel name="acceptance" required>
+            I accept the terms and conditions of use.
+        </mat-checkbox>
+
+        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">
+            Submit
+        </button>
+
+        <mat-label *ngIf="errorExists">{{ errorText }}</mat-label>
+
+        <button mat-raised-button color="accent"><a routerLink="/login">Already have an account? Login here.</a></button>
+
+    </form>
+<mat-card>

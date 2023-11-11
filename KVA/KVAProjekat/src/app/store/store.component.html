@@ -1,0 +1,32 @@
+<div fxLayout="column">
+   <div class="sidebar" fxFlex fxLayout="row" fxLayoutAlign="space-around center" matSort (matSortChange)="doFilter($any($event).value)">
+      <div fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+        <strong>Sort by:</strong>
+        <button mat-raised-button color="accent" (click)="doFav()">Favorite</button>
+        <p mat-sort-header="price">Pricing</p>
+        <p mat-sort-header="name">Name</p>
+      </div>
+      <div>
+        <strong>Search: </strong>
+        <input matInput type="text" (keyup)="doSearch($any($event.target).value)" placeholder="What are you looking for?">
+      </div>
+    </div>
+    <mat-divider ></mat-divider>
+    <div fxFlex fxLayoutAlign="center center" class="card" fxLayout="column" fxLayoutGap="20px">
+      <mat-card fxLayout="row" fxLayoutGap="30px" *ngFor="let card of observable | async">
+          <img fxLayoutAlign="center left" class="card-image" mat-card-image [src]="card.img">
+          <div fxLayout="column">
+          <mat-card-title>{{card.name}}</mat-card-title>
+          <mat-card-subtitle >{{card.type}}</mat-card-subtitle>
+          <mat-card-subtitle >{{card.status}}!</mat-card-subtitle>
+          <mat-card-subtitle fxLayoutAlign="left top">{{card.description}}</mat-card-subtitle>
+          <mat-card-subtitle >Likes: {{card.likes}}</mat-card-subtitle>
+          <mat-card-subtitle *ngFor=" let comment of card.comments ">{{comment.userName + " - " + comment.comment}}</mat-card-subtitle>
+          <button mat-raised-button color="warn" (click)="reserveVoyage(this.card.id)">{{'Rezervisi! ' + this.card.price + ' $'}}</button>
+          </div>
+      </mat-card>
+    </div>
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+
+

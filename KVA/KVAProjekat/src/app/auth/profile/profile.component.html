@@ -1,0 +1,77 @@
+<mat-card class="data" fxLayout="column" fxFlex fxLayoutAlign="start center">
+    <h1>My Profile</h1>
+    <button mat-icon-button fxLayoutAlign="center center" *ngIf="this.userService.currentUserSession!.id == this.userService.currentUserSession!.id" (click)="this.isEditing = !this.isEditing">
+        <mat-icon matListIcon>edit</mat-icon> Edit my profile
+    </button>
+    <form fxFlex="30" fxLayout="column" fxLayoutGap="3vh" #editForm="ngForm" (ngSubmit)="finishEditing(editForm)">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1vw">
+            <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!this.isEditing">
+                <h5>Email</h5>
+                <span>{{ this.userService.currentUserSession!.email }}</span>
+            </div>
+            <mat-form-field *ngIf="this.isEditing">
+                <input matInput type="email" placeholder="Your email" name="email" [(ngModel)]="this.userService.currentUserSession!.email" email required #emailInput="ngModel">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1vw">
+            <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!this.isEditing">
+                <h5>Name</h5>
+                <span>{{ this.userService.currentUserSession!.firstname}}</span>
+            </div>
+            <mat-form-field *ngIf="this.isEditing">
+                <input matInput type="text" placeholder="Your firstname" name="firstname" [(ngModel)]="this.userService.currentUserSession!.firstname" required #nameInput="ngModel">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1vw">
+            <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!this.isEditing">
+                <h5>Surname</h5>
+                <span>{{ this.userService.currentUserSession!.lastname }}</span>
+            </div>
+            <mat-form-field *ngIf="this.isEditing">
+                <input matInput type="text" placeholder="Your lastname" name="lastname" [(ngModel)]="this.userService.currentUserSession!.lastname"  required #surnameInput="ngModel">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1vw">
+            <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!this.isEditing">
+                <h5>Password</h5>
+                <span>{{ this.userService.currentUserSession!.password }}</span>
+            </div>
+            <mat-form-field *ngIf="this.isEditing">
+                <input matInput type="password" minlength="6" placeholder="Your password" name="password" [(ngModel)]="this.userService.currentUserSession!.password" password required #passwordInput="ngModel">
+                <mat-hint align="end">{{ this.userService.currentUserSession!.password.length }} / 6</mat-hint>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1vw">
+            <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!this.isEditing">
+                <h5>Address</h5>
+                <span>{{ this.userService.currentUserSession!.address }}</span>
+            </div>
+            <mat-form-field *ngIf="this.isEditing">
+                <input matInput type="text" placeholder="Your address" name="address" [(ngModel)]="this.userService.currentUserSession!.address"  required #addressInput="ngModel">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1vw">
+            <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!this.isEditing">
+                <h5>Date</h5>
+                <span>{{ this.userService.currentUserSession!.date }}</span>
+            </div>
+            <mat-form-field *ngIf="this.isEditing">
+                <input matInput placeholder="Your date of birth" [matDatepicker]="picker" [(ngModel)]="this.userService.currentUserSession!.date" name="birthDate" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1vw">
+            <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!this.isEditing">
+                <h5>Favorites</h5>
+                <span>{{ this.userService.currentUserSession!.favorites }}</span>
+            </div>
+            <mat-form-field *ngIf="this.isEditing">
+                <mat-select  placeholder="Your favorite" [formControl]="favs" [(ngModel)]="this.userService.currentUserSession!.favorites" single>
+                    <mat-option *ngFor="let fav of favsOptions" [value]="fav">{{fav}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <button *ngIf="this.isEditing" mat-raised-button type="submit" color="primary">Save changes</button>
+    </form>
+</mat-card>
